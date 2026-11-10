@@ -1,0 +1,6 @@
+FROM registry.fedoraproject.org/fedora-minimal:latest
+RUN microdnf -y install tor && microdnf clean all && rm -rf /var/cache/*
+COPY deploy/torrc /etc/tor/torrc
+RUN install -d -m 0700 -o toranon -g toranon /var/lib/tor /var/lib/tor/hs
+USER toranon
+ENTRYPOINT ["tor","-f","/etc/tor/torrc"]

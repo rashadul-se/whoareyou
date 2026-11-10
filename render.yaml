@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: private-streamlit
+    runtime: docker
+    dockerfilePath: ./Containerfile
+    plan: starter            # use "free" for testing (sleeps when idle)
+    region: frankfurt
+    healthCheckPath: /_stcore/health
+    autoDeploy: true
+    envVars:
+      - key: MAX_SESSIONS
+        value: "25"
+      - key: SESSION_TTL
+        value: "90"
